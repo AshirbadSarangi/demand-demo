@@ -17,6 +17,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+import { MatInputModule } from '@angular/material/input';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatInputModule,
     MatExpansionModule,
     MatButtonToggleModule,
     MatCardModule,
