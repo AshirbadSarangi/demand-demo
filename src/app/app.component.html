@@ -40,7 +40,7 @@
       aria-labelledby="example-radio-group-label"
       class="radio-group"
       [(ngModel)]="chosenProduct">
-      <mat-radio-button class="radio-button" *ngFor="let product of products" [value]="product">
+      <mat-radio-button class="radio-button" color="primary" *ngFor="let product of products" [value]="product">
         {{product}}
       </mat-radio-button>
     </mat-radio-group>
@@ -76,9 +76,9 @@
       <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="radio-group"
-      [(ngModel)]="chosenForecastPeriod">
-      <mat-radio-button class="radio-button" *ngFor="let forecastPeriod of forecastPeriods" [value]="forecastPeriod">
-        {{forecastPeriod}}
+      [(ngModel)]="selectedChartPeriod">
+      <mat-radio-button class="radio-button" color="primary" *ngFor="let forecastPeriod of forecastPeriods" [value]="forecastPeriod.value">
+        {{forecastPeriod.name}}
       </mat-radio-button>
     </mat-radio-group>
     </mat-expansion-panel>
@@ -94,44 +94,27 @@
       aria-labelledby="example-radio-group-label"
       class="radio-group"
       [(ngModel)]="chosenHistPeriod">
-      <mat-radio-button class="radio-button" *ngFor="let histDuration of histDurations" [value]="histDuration">
+      <mat-radio-button class="radio-button" color="primary" *ngFor="let histDuration of histDurations" [value]="histDuration">
         {{histDuration}}
       </mat-radio-button>
 
     </mat-radio-group>
-
-    <!-- DatePicker -->
-    <!-- <mat-form-field appearance="fill" class="date-tweaks">
-      <mat-label style="color:white">Enter a date range</mat-label>
-      <mat-date-range-input [formGroup]="dateRangeTable" [rangePicker]="tablepicker"  id="tableRange" name="tableRange">
-        <input matStartDate name="inputStartDate" formControlName="startDate" placeholder="Start date">
-        <input matEndDate name="inputEndDate" formControlName="endDate" placeholder="End date">
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="tablepicker"></mat-datepicker-toggle>
-      <mat-date-range-picker #tablepicker>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-        </mat-datepicker-actions>
-      </mat-date-range-picker>
-      <mat-error *ngIf="dateRangeTable.controls.startDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-      <mat-error *ngIf="dateRangeTable.controls.endDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-    </mat-form-field> -->
-
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-     -->
-
-    
-  
-    </mat-expansion-panel>
+  </mat-expansion-panel>
 
     <!-- Datepicker -->
+    <mat-form-field appearance="outline" class="date-tweaks" (click)="picker.open()">
+      <mat-label style="color:white">Start Date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-hint style="color:white">MM/DD/YYYY</mat-hint>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="date-tweaks" (click)="endpicker.open()">
+      <mat-label style="color:white">End Date</mat-label>
+      <input matInput [matDatepicker]="endpicker">
+      <mat-hint style="color:white">MM/DD/YYYY</mat-hint>
+      <mat-datepicker #endpicker></mat-datepicker>
+    </mat-form-field>
 
   </aside>
   
@@ -148,26 +131,6 @@
         </div>
 
         <div style="display:flex;height:32px">
-
-          <!-- Datepickers -->
-          <!-- <mat-form-field appearance="outline">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [formGroup]="dateRangeTrend" [rangePicker]="pickerTrend"  id="trendRange" name="trendRange  ">
-              <input matStartDate name="inputTrendStartDate" formControlName="startDate" placeholder="Start date">
-              <input matEndDate name="inputTrendEndDate" formControlName="endDate" placeholder="End date">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="pickerTrend"></mat-datepicker-toggle>
-            <mat-date-range-picker #pickerTrend>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-              </mat-datepicker-actions>
-            </mat-date-range-picker>
-            <mat-error *ngIf="dateRangeTrend.controls.startDate.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-            <mat-error *ngIf="dateRangeTrend.controls.endDate.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-          </mat-form-field> -->
-          
-          &nbsp;&nbsp;
 
           <!-- Weekly, Monthly, Yearly Buttons -->
           <mat-button-toggle-group  [(ngModel)]="selectedChartPeriod" selected=weekly #group (change)="[print(selectedChartPeriod),appointDate()]"> 
@@ -281,7 +244,7 @@
           <mat-button-toggle value="quarterly">Q</mat-button-toggle>
         </mat-button-toggle-group> -->
 
-        <button mat-raised-button color="primary" style="padding-bottom:38px;">Submit</button>
+        <button mat-raised-button color="primary" style="padding-bottom:38px;" (click)="openSnackBar(message, action)">Submit</button>
       </div>
       
     </div>
@@ -305,8 +268,8 @@
             <td>{{(98948983/13435252) | number:'1.0-2'}}%</td>
             <td>
               <mat-radio-group id="approval-status" aria-label="Select an option">
-                <mat-radio-button value="1">Yes</mat-radio-button>&nbsp;&nbsp;
-                <mat-radio-button value="2">No</mat-radio-button>
+                <mat-radio-button value="1" color="primary">Yes</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="2" color="accent">No</mat-radio-button>
               </mat-radio-group>              
             </td>
           </tr>
@@ -318,8 +281,8 @@
             <td>{{(98948983/13435252) | number:'1.0-2'}}%</td>
             <td>
               <mat-radio-group id="approval-status" aria-label="Select an option">
-                <mat-radio-button value="1">Yes</mat-radio-button>&nbsp;&nbsp;
-                <mat-radio-button value="2">No</mat-radio-button>
+                <mat-radio-button value="1" color="primary">Yes</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="2" color="accent">No</mat-radio-button>
               </mat-radio-group>              
             </td>
           </tr>
@@ -331,8 +294,8 @@
             <td>{{(98948983/13435252) | number:'1.0-2'}}%</td>
             <td>
               <mat-radio-group id="approval-status" aria-label="Select an option">
-                <mat-radio-button value="1">Yes</mat-radio-button>&nbsp;&nbsp;
-                <mat-radio-button value="2">No</mat-radio-button>
+                <mat-radio-button value="1" color="primary">Yes</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="2" color="accent">No</mat-radio-button>
               </mat-radio-group>              
             </td>
           </tr>

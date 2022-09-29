@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {ThemePalette} from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { EChartsOption } from 'echarts';
 import  { weeklyForecast, weeklyHist, monthlyForecast, monthlyHist, quaterlyForecast, quaterlyHist} from './const_file';
 
@@ -17,7 +18,7 @@ export interface Task {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements DoCheck {
   title = 'Demand Demo';
   
  weeklyHist = weeklyHist
@@ -30,10 +31,13 @@ export class AppComponent {
 
   constructor
   (
-    private _formBuilder:FormBuilder
+    private _formBuilder:FormBuilder,
+    private _snackBar: MatSnackBar
   )
   {}
 
+  message = "Responses Recorded"
+  action = "Close"
 
   dateRangeTrend = this._formBuilder.group
   (
@@ -140,7 +144,9 @@ export class AppComponent {
     ],
   };
 
-  
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
 
   updateOptions : any
   timer = setInterval(() => {
@@ -169,7 +175,12 @@ export class AppComponent {
   chosenForecastPeriod: string ="";
 
   products: string[] = ['Product 1', 'Product 2', 'Product 3', 'Product 4'];
-  forecastPeriods: string[] = ['1 Week', '1 Month', '1 Quater'];
+  forecastPeriods= 
+  [
+    {name :'1 Week', value: 'weekly'},
+    {name :'1 Month', value :'monthly'},
+    {name :'1 Quater', value :'quarterly'},
+  ]
   histDurations: string[] = ['0.5 Year', '1 Year', '1.5 Years', '2 Years'];
 
 showFiller = false;
@@ -216,6 +227,10 @@ setAll(completed: boolean) {
   this.categories.subcategories.forEach(t => (t.completed = completed));
 }
 
+ngDoCheck()
+{
+  this.appointDate()
+}
 
 
 print(event:any)
