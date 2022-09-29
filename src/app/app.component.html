@@ -40,7 +40,7 @@
       aria-labelledby="example-radio-group-label"
       class="radio-group"
       [(ngModel)]="chosenProduct">
-      <mat-radio-button class="radio-button" *ngFor="let product of products" [value]="product">
+      <mat-radio-button class="radio-button" color="primary" *ngFor="let product of products" [value]="product">
         {{product}}
       </mat-radio-button>
     </mat-radio-group>
@@ -76,9 +76,9 @@
       <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="radio-group"
-      [(ngModel)]="chosenForecastPeriod">
-      <mat-radio-button class="radio-button" *ngFor="let forecastPeriod of forecastPeriods" [value]="forecastPeriod">
-        {{forecastPeriod}}
+      [(ngModel)]="selectedChartPeriod">
+      <mat-radio-button class="radio-button" color="primary" *ngFor="let forecastPeriod of forecastPeriods" [value]="forecastPeriod.value">
+        {{forecastPeriod.name}}
       </mat-radio-button>
     </mat-radio-group>
     </mat-expansion-panel>
@@ -94,7 +94,7 @@
       aria-labelledby="example-radio-group-label"
       class="radio-group"
       [(ngModel)]="chosenHistPeriod">
-      <mat-radio-button class="radio-button" *ngFor="let histDuration of histDurations" [value]="histDuration">
+      <mat-radio-button class="radio-button" color="primary" *ngFor="let histDuration of histDurations" [value]="histDuration">
         {{histDuration}}
       </mat-radio-button>
 
@@ -244,7 +244,7 @@
           <mat-button-toggle value="quarterly">Q</mat-button-toggle>
         </mat-button-toggle-group> -->
 
-        <button mat-raised-button color="primary" style="padding-bottom:38px;">Submit</button>
+        <button mat-raised-button color="primary" style="padding-bottom:38px;" (click)="openSnackBar(message, action)">Submit</button>
       </div>
       
     </div>
@@ -268,8 +268,8 @@
             <td>{{(98948983/13435252) | number:'1.0-2'}}%</td>
             <td>
               <mat-radio-group id="approval-status" aria-label="Select an option">
-                <mat-radio-button value="1">Yes</mat-radio-button>&nbsp;&nbsp;
-                <mat-radio-button value="2">No</mat-radio-button>
+                <mat-radio-button value="1" color="primary">Yes</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="2" color="accent">No</mat-radio-button>
               </mat-radio-group>              
             </td>
           </tr>
@@ -281,8 +281,8 @@
             <td>{{(98948983/13435252) | number:'1.0-2'}}%</td>
             <td>
               <mat-radio-group id="approval-status" aria-label="Select an option">
-                <mat-radio-button value="1">Yes</mat-radio-button>&nbsp;&nbsp;
-                <mat-radio-button value="2">No</mat-radio-button>
+                <mat-radio-button value="1" color="primary">Yes</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="2" color="accent">No</mat-radio-button>
               </mat-radio-group>              
             </td>
           </tr>
@@ -294,8 +294,8 @@
             <td>{{(98948983/13435252) | number:'1.0-2'}}%</td>
             <td>
               <mat-radio-group id="approval-status" aria-label="Select an option">
-                <mat-radio-button value="1">Yes</mat-radio-button>&nbsp;&nbsp;
-                <mat-radio-button value="2">No</mat-radio-button>
+                <mat-radio-button value="1" color="primary">Yes</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="2" color="accent">No</mat-radio-button>
               </mat-radio-group>              
             </td>
           </tr>
